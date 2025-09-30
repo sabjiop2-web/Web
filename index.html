@@ -1,217 +1,929 @@
-```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Spider Hosting</title>
-  <link rel="shortcut icon" href="./images/logo.png" />
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Sharp" rel="stylesheet" />
-  <link rel="stylesheet" href="style.css" />
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Server Hosting Solutions</title>
+    <link rel="shortcut icon" href="./images/logo.png">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Sharp" rel="stylesheet">
+    <style>
+        :root {
+            --color-primary: #7380ec;
+            --color-danger: #ff7782;
+            --color-success: #41f1b6;
+            --color-warning: #ffbb55;
+            --color-white: #fff;
+            --color-info-dark: #7d8da1;
+            --color-info-light: #dce1eb;
+            --color-dark: #363949;
+            --color-light: rgba(132, 139, 200, 0.18);
+            --color-primary-variant: #111e88;
+            --color-dark-variant: #677483;
+            --color-background: #f6f6f9;
+
+            --card-border-radius: 2rem;
+            --border-radius-1: 0.4rem;
+            --border-radius-2: 0.8rem;
+            --border-radius-3: 1.2rem;
+
+            --card-padding: 1.8rem;
+            --padding-1: 1.2rem;
+
+            --box-shadow: 0 2rem 3rem var(--color-light);
+        }
+
+        .dark-theme-variables {
+            --color-background: #181a1e;
+            --color-white: #202528;
+            --color-dark: #edeffd;
+            --color-dark-variant: #a3bdcc;
+            --color-light: rgba(0, 0, 0, 0.4);
+            --box-shadow: 0 2rem 3rem var(--color-light);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            outline: 0;
+            appearance: none;
+            border: 0;
+            text-decoration: none;
+            list-style: none;
+            box-sizing: border-box;
+        }
+
+        html {
+            font-size: 14px;
+        }
+
+        body {
+            width: 100vw;
+            height: 100vh;
+            font-family: 'Poppins', sans-serif;
+            font-size: 0.88rem;
+            background: var(--color-background);
+            user-select: none;
+            overflow-x: hidden;
+            color: var(--color-dark);
+        }
+
+        .container {
+            display: grid;
+            width: 96%;
+            margin: 0 auto;
+            gap: 1.8rem;
+            grid-template-columns: 14rem auto 23rem;
+        }
+
+        a {
+            color: var(--color-dark);
+        }
+
+        img {
+            display: block;
+            width: 100%;
+        }
+
+        h1 {
+            font-weight: 800;
+            font-size: 1.8rem;
+        }
+
+        h2 {
+            font-size: 1.4rem;
+        }
+
+        h3 {
+            font-size: 0.87rem;
+        }
+
+        h4 {
+            font-size: 0.8rem;
+        }
+
+        h5 {
+            font-size: 0.77rem;
+        }
+
+        small {
+            font-size: 0.75rem;
+        }
+
+        .profile-photo {
+            width: 2.8rem;
+            height: 2.8rem;
+            border-radius: 50%;
+            overflow: hidden;
+        }
+
+        .text-muted {
+            color: var(--color-info-dark);
+        }
+
+        p {
+            color: var(--color-dark-variant);
+        }
+
+        b {
+            color: var(--color-dark);
+        }
+
+        .primary {
+            color: var(--color-primary);
+        }
+
+        .danger {
+            color: var(--color-danger);
+        }
+
+        .success {
+            color: var(--color-success);
+        }
+
+        .warning {
+            color: var(--color-warning);
+        }
+
+        header {
+            width: 100%;
+            background: var(--color-white);
+            padding: 0.7rem 0;
+            position: fixed;
+            top: 0;
+            z-index: 10;
+            box-shadow: 0 1rem 1rem var(--color-light);
+        }
+
+        header .container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 96%;
+            margin: 0 auto;
+        }
+
+        header .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        header .logo img {
+            width: 2rem;
+            height: 2rem;
+        }
+
+        header .navbar {
+            display: flex;
+            gap: 2rem;
+        }
+
+        header .navbar a {
+            display: flex;
+            gap: 0.5rem;
+            align-items: center;
+            color: var(--color-dark);
+            transition: all 0.3s ease;
+        }
+
+        header .navbar a:hover {
+            color: var(--color-primary);
+        }
+
+        header .navbar a.active {
+            color: var(--color-primary);
+        }
+
+        header .theme-toggler {
+            background: var(--color-light);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 1.6rem;
+            width: 4.2rem;
+            cursor: pointer;
+            border-radius: var(--border-radius-1);
+        }
+
+        header .theme-toggler span {
+            font-size: 1.2rem;
+            width: 50%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        header .theme-toggler span.active {
+            background: var(--color-primary);
+            color: white;
+            border-radius: var(--border-radius-1);
+        }
+
+        header #profile-btn {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        aside {
+            height: 100vh;
+            margin-top: 4rem;
+        }
+
+        aside .profile {
+            background: var(--color-white);
+            padding: var(--card-padding);
+            border-radius: var(--card-border-radius);
+            box-shadow: var(--box-shadow);
+            transition: all 0.3s ease;
+            margin-bottom: 1rem;
+        }
+
+        aside .profile:hover {
+            box-shadow: none;
+        }
+
+        aside .profile .top {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        aside .profile .about {
+            margin-top: 1rem;
+        }
+
+        aside .profile .about h5 {
+            margin-top: 0.8rem;
+        }
+
+        main {
+            margin-top: 4rem;
+        }
+
+        main h1 {
+            margin-bottom: 1rem;
+        }
+
+        main .subjects {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.6rem;
+            margin-bottom: 2rem;
+        }
+
+        main .subjects > div {
+            background: var(--color-white);
+            padding: var(--card-padding);
+            border-radius: var(--card-border-radius);
+            box-shadow: var(--box-shadow);
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        main .subjects > div:hover {
+            box-shadow: none;
+        }
+
+        main .subjects span {
+            background: var(--color-primary);
+            padding: 0.5rem;
+            border-radius: 50%;
+            color: var(--color-white);
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        main .subjects .eg span {
+            background: var(--color-danger);
+        }
+
+        main .subjects .mth span {
+            background: var(--color-success);
+        }
+
+        main .subjects .cs span {
+            background: var(--color-primary);
+        }
+
+        main .subjects .cg span {
+            background: var(--color-warning);
+        }
+
+        main .subjects .net span {
+            background: var(--color-primary-variant);
+        }
+
+        main .subjects h3 {
+            margin: 1rem 0 0.6rem;
+        }
+
+        main .subjects .progress {
+            position: relative;
+            width: 92px;
+            height: 92px;
+            border-radius: 50%;
+            margin: 1rem auto;
+        }
+
+        main .subjects svg {
+            width: 7rem;
+            height: 7rem;
+        }
+
+        main .subjects svg circle {
+            fill: none;
+            stroke-width: 10;
+            stroke-linecap: round;
+            transform: translate(5px, 5px);
+        }
+
+        main .subjects .eg svg circle {
+            stroke: var(--color-danger);
+            stroke-dashoffset: -30;
+            stroke-dasharray: 200;
+        }
+
+        main .subjects .mth svg circle {
+            stroke: var(--color-success);
+            stroke-dashoffset: -30;
+            stroke-dasharray: 200;
+        }
+
+        main .subjects .cs svg circle {
+            stroke: var(--color-primary);
+            stroke-dashoffset: -30;
+            stroke-dasharray: 200;
+        }
+
+        main .subjects .cg svg circle {
+            stroke: var(--color-warning);
+            stroke-dashoffset: -30;
+            stroke-dasharray: 200;
+        }
+
+        main .subjects .net svg circle {
+            stroke: var(--color-primary-variant);
+            stroke-dashoffset: -30;
+            stroke-dasharray: 200;
+        }
+
+        main .subjects .progress .number {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .right {
+            margin-top: 4rem;
+        }
+
+        .right .announcements {
+            background: var(--color-white);
+            padding: var(--card-padding);
+            border-radius: var(--card-border-radius);
+            box-shadow: var(--box-shadow);
+            transition: all 0.3s ease;
+            margin-bottom: 1.5rem;
+        }
+
+        .right .announcements:hover {
+            box-shadow: none;
+        }
+
+        .right .announcements h2 {
+            margin-bottom: 0.8rem;
+        }
+
+        .right .announcements .updates .message {
+            padding: 0.5rem 0;
+            border-bottom: 1px solid var(--color-light);
+        }
+
+        .right .announcements .updates .message:last-child {
+            border: none;
+        }
+
+        .right .leaves {
+            background: var(--color-white);
+            padding: var(--card-padding);
+            border-radius: var(--card-border-radius);
+            box-shadow: var(--box-shadow);
+            transition: all 0.3s ease;
+        }
+
+        .right .leaves:hover {
+            box-shadow: none;
+        }
+
+        .right .leaves h2 {
+            margin-bottom: 0.8rem;
+        }
+
+        .right .leaves .teacher {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            align-items: center;
+        }
+
+        .right .leaves .teacher:last-child {
+            margin: 0;
+        }
+
+        .right .leaves .teacher .profile-photo {
+            width: 2.5rem;
+            height: 2.5rem;
+        }
+
+        .timetable {
+            background: var(--color-white);
+            padding: var(--card-padding);
+            border-radius: var(--card-border-radius);
+            box-shadow: var(--box-shadow);
+            margin-top: 2rem;
+        }
+
+        .timetable > div:first-child {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+        }
+
+        .timetable table {
+            width: 100%;
+            text-align: center;
+            border-collapse: collapse;
+        }
+
+        .timetable th, .timetable td {
+            padding: 0.8rem;
+            border-bottom: 1px solid var(--color-light);
+        }
+
+        .timetable th {
+            background: var(--color-light);
+        }
+
+        .timetable tr:last-child td {
+            border: none;
+        }
+
+        .closeBtn {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        /* Server Hosting Specific Styles */
+        .server-plans {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.6rem;
+            margin-bottom: 2rem;
+        }
+
+        .server-plans > div {
+            background: var(--color-white);
+            padding: var(--card-padding);
+            border-radius: var(--card-border-radius);
+            box-shadow: var(--box-shadow);
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+
+        .server-plans > div:hover {
+            box-shadow: none;
+            transform: translateY(-5px);
+        }
+
+        .server-plans h3 {
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+        }
+
+        .server-plans .price {
+            font-size: 2rem;
+            font-weight: bold;
+            margin: 1rem 0;
+            color: var(--color-primary);
+        }
+
+        .server-plans .features {
+            margin: 1.5rem 0;
+        }
+
+        .server-plans .features li {
+            padding: 0.5rem 0;
+            border-bottom: 1px solid var(--color-light);
+        }
+
+        .server-plans .features li:last-child {
+            border: none;
+        }
+
+        .server-plans .btn {
+            display: inline-block;
+            background: var(--color-primary);
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border-radius: var(--border-radius-1);
+            margin-top: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .server-plans .btn:hover {
+            background: var(--color-primary-variant);
+        }
+
+        .server-stats {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.6rem;
+            margin-bottom: 2rem;
+        }
+
+        .server-stats > div {
+            background: var(--color-white);
+            padding: var(--card-padding);
+            border-radius: var(--card-border-radius);
+            box-shadow: var(--box-shadow);
+            transition: all 0.3s ease;
+        }
+
+        .server-stats > div:hover {
+            box-shadow: none;
+        }
+
+        .server-stats h3 {
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .server-stats .stat-value {
+            font-size: 2rem;
+            font-weight: bold;
+            margin: 1rem 0;
+            color: var(--color-primary);
+        }
+
+        .server-stats .stat-desc {
+            color: var(--color-info-dark);
+        }
+
+        @media screen and (max-width: 1200px) {
+            .container {
+                width: 94%;
+                grid-template-columns: 7rem auto 23rem;
+            }
+
+            header .navbar h3 {
+                display: none;
+            }
+
+            header .navbar a {
+                width: 5.6rem;
+            }
+
+            main .subjects {
+                grid-template-columns: 1fr;
+                gap: 0;
+            }
+
+            main .subjects > div {
+                margin-bottom: 1rem;
+            }
+
+            .server-plans {
+                grid-template-columns: 1fr;
+            }
+
+            .server-stats {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media screen and (max-width: 768px) {
+            .container {
+                width: 100%;
+                grid-template-columns: 1fr;
+            }
+
+            aside {
+                position: fixed;
+                left: -100%;
+                background: var(--color-white);
+                width: 18rem;
+                z-index: 3;
+                box-shadow: 1rem 3rem 4rem var(--color-light);
+                height: 100vh;
+                padding-right: var(--card-padding);
+                display: none;
+                animation: showMenu 0.4s ease forwards;
+            }
+
+            @keyframes showMenu {
+                to {
+                    left: 0;
+                }
+            }
+
+            aside .logo {
+                margin-left: 1rem;
+            }
+
+            aside .logo h2 {
+                display: inline;
+            }
+
+            aside .profile {
+                display: none;
+            }
+
+            aside .navbar a {
+                width: 100%;
+                height: 3.4rem;
+            }
+
+            aside .navbar a:last-child {
+                position: absolute;
+                bottom: 5rem;
+            }
+
+            main {
+                margin-top: 8rem;
+                padding: 0 1rem;
+            }
+
+            .right {
+                width: 94%;
+                margin: 0 auto 4rem;
+            }
+
+            .right .announcements {
+                position: relative;
+                margin: 3rem 0 0 0;
+                width: 100%;
+            }
+
+            header {
+                width: 100%;
+                padding: 0 0.8rem;
+            }
+
+            header .theme-toggler {
+                width: 4.4rem;
+                position: absolute;
+                left: 66%;
+            }
+        }
+    </style>
 </head>
 <body>
-  <header>
-    <div class="logo" title="Spider Hosting">
-      <img src="./images/logo.png" alt="logo"/>
-      <h2>SP<span class="danger">H</span></h2>
+    <header>
+        <div class="container">
+            <div class="logo" title="Server Hosting Solutions">
+                <img src="./images/logo.png" alt="">
+                <h2>S<span class="danger">H</span>S</h2>
+            </div>
+            <div class="navbar">
+                <a href="index.html" class="active">
+                    <span class="material-icons-sharp">home</span>
+                    <h3>Home</h3>
+                </a>
+                <a href="plans.html">
+                    <span class="material-icons-sharp">dns</span>
+                    <h3>Plans</h3>
+                </a> 
+                <a href="features.html">
+                    <span class="material-icons-sharp">grid_view</span>
+                    <h3>Features</h3>
+                </a>
+                <a href="support.html">
+                    <span class="material-icons-sharp">support_agent</span>
+                    <h3>Support</h3>
+                </a>
+                <a href="#">
+                    <span class="material-icons-sharp" onclick="">login</span>
+                    <h3>Login</h3>
+                </a>
+            </div>
+            <div id="profile-btn">
+                <span class="material-icons-sharp">person</span>
+            </div>
+            <div class="theme-toggler">
+                <span class="material-icons-sharp active">light_mode</span>
+                <span class="material-icons-sharp">dark_mode</span>
+            </div>
+        </div>
+    </header>
+    <div class="container">
+        <aside>
+            <div class="profile">
+                <div class="top">
+                    <div class="profile-photo">
+                        <img src="./images/profile-1.jpg" alt="">
+                    </div>
+                    <div class="info">
+                        <p>Hey, <b>Alex</b> </p>
+                        <small class="text-muted">Premium User</small>
+                    </div>
+                </div>
+                <div class="about">
+                    <h5>Plan</h5>
+                    <p>Enterprise Cloud Server</p>
+                    <h5>Renewal Date</h5>
+                    <p>15-Dec-2023</p>
+                    <h5>Bandwidth</h5>
+                    <p>Unlimited</p>
+                    <h5>Storage</h5>
+                    <p>500 GB SSD</p>
+                    <h5>Support</h5>
+                    <p>24/7 Priority</p>
+                </div>
+            </div>
+        </aside>
+
+        <main>
+            <h1>Server Hosting Dashboard</h1>
+            
+            <div class="server-plans">
+                <div class="basic">
+                    <span class="material-icons-sharp">dns</span>
+                    <h3>Basic Plan</h3>
+                    <div class="price">$9.99<span>/month</span></div>
+                    <ul class="features">
+                        <li>1 CPU Core</li>
+                        <li>2 GB RAM</li>
+                        <li>50 GB SSD Storage</li>
+                        <li>1 TB Bandwidth</li>
+                        <li>Free SSL Certificate</li>
+                    </ul>
+                    <a href="#" class="btn">Select Plan</a>
+                </div>
+                <div class="pro">
+                    <span class="material-icons-sharp">storage</span>
+                    <h3>Professional Plan</h3>
+                    <div class="price">$24.99<span>/month</span></div>
+                    <ul class="features">
+                        <li>4 CPU Cores</li>
+                        <li>8 GB RAM</li>
+                        <li>200 GB SSD Storage</li>
+                        <li>5 TB Bandwidth</li>
+                        <li>Free SSL Certificate</li>
+                        <li>Priority Support</li>
+                    </ul>
+                    <a href="#" class="btn">Select Plan</a>
+                </div>
+                <div class="enterprise">
+                    <span class="material-icons-sharp">cloud</span>
+                    <h3>Enterprise Plan</h3>
+                    <div class="price">$49.99<span>/month</span></div>
+                    <ul class="features">
+                        <li>8 CPU Cores</li>
+                        <li>16 GB RAM</li>
+                        <li>500 GB SSD Storage</li>
+                        <li>Unlimited Bandwidth</li>
+                        <li>Free SSL Certificate</li>
+                        <li>24/7 Priority Support</li>
+                        <li>Dedicated IP</li>
+                    </ul>
+                    <a href="#" class="btn">Select Plan</a>
+                </div>
+            </div>
+
+            <div class="server-stats">
+                <div class="uptime">
+                    <h3><span class="material-icons-sharp">schedule</span> Server Uptime</h3>
+                    <div class="stat-value">99.98%</div>
+                    <p class="stat-desc">Our servers maintain excellent uptime performance</p>
+                </div>
+                <div class="customers">
+                    <h3><span class="material-icons-sharp">groups</span> Happy Customers</h3>
+                    <div class="stat-value">10,000+</div>
+                    <p class="stat-desc">Serving clients worldwide with reliable hosting</p>
+                </div>
+            </div>
+
+            <div class="timetable">
+                <div>
+                    <span id="prevDay">&lt;</span>
+                    <h2>Server Maintenance Schedule</h2>
+                    <span id="nextDay">&gt;</span>
+                </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Time</th>
+                            <th>Service</th>
+                            <th>Duration</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>15 Nov 2023</td>
+                            <td>02:00 - 04:00 AM</td>
+                            <td>Database Optimization</td>
+                            <td>2 hours</td>
+                        </tr>
+                        <tr>
+                            <td>22 Nov 2023</td>
+                            <td>03:00 - 04:30 AM</td>
+                            <td>Security Updates</td>
+                            <td>1.5 hours</td>
+                        </tr>
+                        <tr>
+                            <td>29 Nov 2023</td>
+                            <td>01:00 - 03:00 AM</td>
+                            <td>Hardware Maintenance</td>
+                            <td>2 hours</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </main>
+
+        <div class="right">
+            <div class="announcements">
+                <h2>Service Announcements</h2>
+                <div class="updates">
+                    <div class="message">
+                        <p> <b>Maintenance</b> Scheduled server maintenance on November 15th, 2-4 AM EST.</p>
+                        <small class="text-muted">2 Minutes Ago</small>
+                    </div>
+                    <div class="message">
+                        <p> <b>New Feature</b> Introducing automated backups for all hosting plans.</p>
+                        <small class="text-muted">10 Minutes Ago</small>
+                    </div>
+                    <div class="message">
+                        <p> <b>Security</b> Enhanced DDoS protection now active across all servers.</p>
+                        <small class="text-muted">Yesterday</small>
+                    </div>
+                </div>
+            </div>
+
+            <div class="leaves">
+                <h2>Support Team Online</h2>
+                <div class="teacher">
+                    <div class="profile-photo"><img src="./images/profile-2.jpeg" alt=""></div>
+                    <div class="info">
+                        <h3>Michael Chen</h3>
+                        <small class="text-muted">Senior Support</small>
+                    </div>
+                </div>
+                <div class="teacher">
+                    <div class="profile-photo"><img src="./images/profile-3.jpg" alt=""></div>
+                    <div class="info">
+                        <h3>Sarah Johnson</h3>
+                        <small class="text-muted">Technical Specialist</small>
+                    </div>
+                </div>
+                <div class="teacher">
+                    <div class="profile-photo"><img src="./images/profile-4.jpg" alt=""></div>
+                    <div class="info">
+                        <h3>David Wilson</h3>
+                        <small class="text-muted">System Administrator</small>
+                    </div>
+                </div>
+            </div>
+
+        </div>
     </div>
-    <div class="navbar">
-      <a href="index.html" class="active">
-        <span class="material-icons-sharp">home</span>
-        <h3>Home</h3>
-      </a>
-      <a href="plans.html">
-        <span class="material-icons-sharp">dns</span>
-        <h3>Hosting Plans</h3>
-      </a>
-      <a href="features.html">
-        <span class="material-icons-sharp">star</span>
-        <h3>Features</h3>
-      </a>
-      <a href="support.html">
-        <span class="material-icons-sharp">support_agent</span>
-        <h3>Support</h3>
-      </a>
-      <a href="login.html">
-        <span class="material-icons-sharp">login</span>
-        <h3>Login</h3>
-      </a>
-    </div>
-    <div id="profile-btn">
-      <span class="material-icons-sharp">person</span>
-    </div>
-    <div class="theme-toggler">
-      <span class="material-icons-sharp active">light_mode</span>
-      <span class="material-icons-sharp">dark_mode</span>
-    </div>
-  </header>
 
-  <div class="container">
-    <!-- Sidebar (About Company) -->
-    <aside>
-      <div class="profile">
-        <div class="top">
-          <div class="profile-photo">
-            <img src="./images/profile-1.jpg" alt=""/>
-          </div>
-          <div class="info">
-            <p>Welcome to <b>Spider Hosting</b></p>
-            <small class="text-muted">Fast • Secure • Reliable</small>
-          </div>
-        </div>
-        <div class="about">
-          <h5>About Us</h5>
-          <p>Providing premium game and web hosting with top-notch performance and 24/7 support.</p>
-          <h5>Contact</h5>
-          <p>+1 987 654 3210</p>
-          <h5>Email</h5>
-          <p>support@spiderhost.com</p>
-          <h5>Address</h5>
-          <p>New York, USA</p>
-        </div>
-      </div>
-    </aside>
+    <script>
+        // Theme Toggler
+        const themeToggler = document.querySelector('.theme-toggler');
+        themeToggler.addEventListener('click', () => {
+            document.body.classList.toggle('dark-theme-variables');
+            
+            themeToggler.querySelector('span:nth-child(1)').classList.toggle('active');
+            themeToggler.querySelector('span:nth-child(2)').classList.toggle('active');
+        });
 
-    <!-- Main Content -->
-    <main>
-      <h1>Hosting Plans</h1>
-      <div class="subjects">
-        <div class="eg">
-          <span class="material-icons-sharp">cloud</span>
-          <h3>Basic Plan</h3>
-          <h2>$5 / mo</h2>
-          <div class="progress">
-            <svg><circle cx="38" cy="38" r="36"></circle></svg>
-            <div class="number"><p>1 GB RAM</p></div>
-          </div>
-          <small class="text-muted">Perfect for starters</small>
-        </div>
+        // Simple navigation for maintenance schedule
+        document.getElementById('prevDay').addEventListener('click', function() {
+            alert('Previous week maintenance schedule');
+        });
 
-        <div class="mth">
-          <span class="material-icons-sharp">cloud_queue</span>
-          <h3>Pro Plan</h3>
-          <h2>$10 / mo</h2>
-          <div class="progress">
-            <svg><circle cx="38" cy="38" r="36"></circle></svg>
-            <div class="number"><p>4 GB RAM</p></div>
-          </div>
-          <small class="text-muted">For growing servers</small>
-        </div>
-
-        <div class="cs">
-          <span class="material-icons-sharp">cloud_done</span>
-          <h3>Premium Plan</h3>
-          <h2>$20 / mo</h2>
-          <div class="progress">
-            <svg><circle cx="38" cy="38" r="36"></circle></svg>
-            <div class="number"><p>8 GB RAM</p></div>
-          </div>
-          <small class="text-muted">High performance</small>
-        </div>
-
-        <div class="cg">
-          <span class="material-icons-sharp">cloud_sync</span>
-          <h3>Enterprise Plan</h3>
-          <h2>$50 / mo</h2>
-          <div class="progress">
-            <svg><circle cx="38" cy="38" r="36"></circle></svg>
-            <div class="number"><p>32 GB RAM</p></div>
-          </div>
-          <small class="text-muted">For big projects</small>
-        </div>
-      </div>
-
-      <!-- Timetable Section Changed to Server Status -->
-      <div class="timetable" id="timetable">
-        <div>
-          <span id="prevDay">&lt;</span>
-          <h2>Server Status</h2>
-          <span id="nextDay">&gt;</span>
-        </div>
-        <span class="closeBtn" onclick="timeTableAll()">X</span>
-        <table>
-          <thead>
-            <tr>
-              <th>Location</th>
-              <th>IP Address</th>
-              <th>Status</th>
-              <th>Ping</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>US East</td>
-              <td>192.168.1.1</td>
-              <td><span style="color:green;">Online</span></td>
-              <td>23ms</td>
-            </tr>
-            <tr>
-              <td>Europe</td>
-              <td>192.168.1.2</td>
-              <td><span style="color:green;">Online</span></td>
-              <td>45ms</td>
-            </tr>
-            <tr>
-              <td>Asia</td>
-              <td>192.168.1.3</td>
-              <td><span style="color:orange;">Maintenance</span></td>
-              <td>-</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </main>
-
-    <!-- Right Sidebar -->
-    <div class="right">
-      <div class="announcements">
-        <h2>Announcements</h2>
-        <div class="updates">
-          <div class="message">
-            <p><b>Update</b> New SSD nodes deployed in US-East.</p>
-            <small class="text-muted">5 Minutes Ago</small>
-          </div>
-          <div class="message">
-            <p><b>Offer</b> 20% off for new customers this month!</p>
-            <small class="text-muted">1 Hour Ago</small>
-          </div>
-          <div class="message">
-            <p><b>Notice</b> Scheduled maintenance on Asia servers.</p>
-            <small class="text-muted">Yesterday</small>
-          </div>
-        </div>
-      </div>
-
-      <div class="leaves">
-        <h2>Support Team</h2>
-        <div class="teacher">
-          <div class="profile-photo"><img src="./images/profile-2.jpeg" alt=""></div>
-          <div class="info">
-            <h3>John Doe</h3>
-            <small class="text-muted">Available</small>
-          </div>
-        </div>
-        <div class="teacher">
-          <div class="profile-photo"><img src="./images/profile-3.jpg" alt=""></div>
-          <div class="info">
-            <h3>Jane Smith</h3>
-            <small class="text-muted">Available</small>
-          </div>
-        </div>
-        <div class="teacher">
-          <div class="profile-photo"><img src="./images/profile-4.jpg" alt=""></div>
-          <div class="info">
-            <h3>Michael Lee</h3>
-            <small class="text-muted">Away</small>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <script src="timeTable.js"></script>
-  <script src="app.js"></script>
+        document.getElementById('nextDay').addEventListener('click', function() {
+            alert('Next week maintenance schedule');
+        });
+    </script>
 </body>
 </html>
-```
